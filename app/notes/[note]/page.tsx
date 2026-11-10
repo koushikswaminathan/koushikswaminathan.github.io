@@ -2,9 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getNote, notes } from "../../../data/notes";
+import { navigation } from "../../../data/site-config";
 
+const notesVisible = navigation.some((item) => item.slug === "notes" && item.visible);
+
+export const dynamicParams = false;
+
+// Static export needs at least one param. While Notes is hidden we emit a single
+// placeholder path, which the page below turns into a 404.
 export function generateStaticParams() {
-  return notes.map((note) => ({ note: note.slug }));
+  return notesVisible ? notes.map((note) => ({ note: note.slug })) : [{ note: "hidden" }];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ note: string }> }): Promise<Metadata> {
@@ -23,7 +30,7 @@ function SharedHeader({ note }: { note: NonNullable<ReturnType<typeof getNote>> 
 
 export default async function NotePage({ params }: { params: Promise<{ note: string }> }) {
   const note = getNote((await params).note);
-  if (!note) notFound();
+  if (!notesVisible || !note) notFound();
   const related = notes.filter((entry) => entry.slug !== note.slug).slice(0, 2);
 
   return (

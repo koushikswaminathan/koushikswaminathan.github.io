@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { newsItems } from "../data/site-config";
+import { homeAbout, newsItems } from "../data/site-config";
 import EmailLink from "./EmailLink";
 
 function LatticeField() {
@@ -92,7 +92,7 @@ export default function Home() {
             <p className="affiliation">Doctoral researcher at Aalto University, Finland.</p>
             <div className="hero-actions">
               <Link className="button button-primary" href="/research">Explore research <span>→</span></Link>
-              <Link className="button button-secondary" href="/about">About me <span>→</span></Link>
+              <Link className="button button-secondary" href="/publications">Publications <span>→</span></Link>
             </div>
           </div>
           <div className="portrait-column">
@@ -106,15 +106,12 @@ export default function Home() {
 
       <section className="home-intro">
         <div className="shell intro-grid">
-          <p className="eyebrow">Research focus</p>
+          <p className="eyebrow">{homeAbout.eyebrow}</p>
           <div>
-            <h2>Collective dynamics under strong constraints.</h2>
-            <p>
-              My work examines how geometry, interference, interactions, and
-              disorder shape transport, relaxation, and long-time memory. I
-              combine analytical approaches with exact diagonalization,
-              projected Hamiltonians, real-time dynamics, and spectral statistics.
-            </p>
+            <h2>{homeAbout.heading}</h2>
+            {homeAbout.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
             <Link className="text-link" href="/research">Read about my research <span>→</span></Link>
           </div>
         </div>

@@ -11,10 +11,20 @@ export const navigation = [
   { slug: "cv", label: "CV", href: "/cv", visible: true },
   { slug: "talks", label: "Talks", href: "/talks", visible: true, optional: true },
   { slug: "teaching", label: "Teaching", href: "/teaching", visible: true, optional: true },
-  { slug: "notes", label: "Notes", href: "/notes", visible: true, optional: true },
+  { slug: "notes", label: "Notes", href: "/notes", visible: false, optional: true },
   { slug: "software", label: "Software", href: "/software", visible: false, optional: true },
-  { slug: "about", label: "About", href: "/about", visible: true },
+  { slug: "about", label: "About", href: "/about", visible: false },
 ] as const;
+
+/** Home-page "About" band (replaces the separate About page, which is hidden). */
+export const homeAbout = {
+  eyebrow: "About",
+  heading: "Collective dynamics under strong constraints.",
+  paragraphs: [
+    "My work examines how geometry, interference, interactions, and disorder shape transport, relaxation, and long-time memory. I combine analytical approaches with exact diagonalization, projected Hamiltonians, real-time dynamics, and spectral statistics.",
+    "I completed my doctorate in the Quantum Dynamics Group at Aalto University, studying quasiparticle localization and ergodicity breaking in flat-band lattice models. Before that, I earned an M.Sc. in Physics at Ludwig-Maximilians-Universität München and a B.Tech. in Electronics and Communication Engineering at NIT Tiruchirappalli.",
+  ],
+};
 
 export const newsItems = [
   {

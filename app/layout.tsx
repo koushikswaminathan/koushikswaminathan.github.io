@@ -18,7 +18,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     const sections = page?.sections.flatMap((section) => section.items?.map((entry) => ({ title: entry.title, description: entry.description, href: item.href })) ?? []) ?? [];
     return page ? [{ title: page.title, description: page.intro, href: item.href }, ...sections] : [];
   });
-  const searchItems = [...pageItems, ...notes.map((note) => ({ title: note.title, description: note.summary, href: `/notes/${note.slug}` }))];
+  const notesVisible = navigation.some((item) => item.slug === "notes" && item.visible);
+  const searchItems = [...pageItems, ...(notesVisible ? notes : []).map((note) => ({ title: note.title, description: note.summary, href: `/notes/${note.slug}` }))];
   return (
     <html lang="en">
       <body>
@@ -37,7 +38,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <footer>
           <div className="shell">
             <p>© 2026 Koushik Swaminathan</p>
-            <div><Link href="/about">About</Link><a href="#top">Back to top ↑</a></div>
+            <div><a href="#top">Back to top ↑</a></div>
           </div>
         </footer>
       </body>
