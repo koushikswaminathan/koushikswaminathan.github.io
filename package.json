@@ -12,7 +12,7 @@
     "lint": "eslint . --ignore-pattern out --ignore-pattern .next"
   },
   "dependencies": {
-    "next": "16.2.6",
+    "next": "^16.4.6",
     "react": "19.2.6",
     "react-dom": "19.2.6"
   },
@@ -27,5 +27,5 @@
     "typescript": "5.9.3"
   },
   "type": "module",
-  "displayName": "Koushik Swaminathan \u2014 Academic Website v2"
+  "displayName": "Koushik Swaminathan — Academic Website v2"
 }
