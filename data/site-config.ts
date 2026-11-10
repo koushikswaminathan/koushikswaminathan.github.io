@@ -21,19 +21,22 @@ export const newsItems = [
     date: "21 Aug 2026",
     title: "Doctoral defense at Aalto University",
     description:
-      "My thesis, “Quasiparticle localization and ergodicity-breaking in a flat-band lattice model,” will be defended at Aalto University.",
+      "I defended my doctoral thesis, “Quasiparticle localization and ergodicity-breaking in flat-band lattice models,” at Aalto University.",
+    href: "https://www.aalto.fi/en/events/public-defence-in-the-field-of-engineering-physics-msc-koushik-swaminathan",
   },
   {
     date: "2026",
     title: "PRB Letter on the projected dice lattice",
     description:
       "Parity-dependent double degeneracy and spectral statistics in the projected dice lattice was published in Physical Review B.",
+    href: "https://doi.org/10.1103/xxzp-ct39",
   },
   {
     date: "Jul 2026",
     title: "Talk at CMPCity 2026",
     description:
       "Presented parity-dependent spectral statistics in a flat-band lattice model in London.",
+    href: "https://research.kent.ac.uk/pqm/cmpcity2026/",
   },
 ];
 
@@ -117,7 +120,7 @@ export const pageContent: Record<
           {
             title: "Research profiles and contact",
             description:
-              "Google Scholar, ORCID, LinkedIn, and my Aalto University email.",
+              "Google Scholar, ORCID, and LinkedIn.",
             links: [
               { label: "Google Scholar", href: "https://scholar.google.com/citations?hl=en&user=PzejhKkAAAAJ" },
               { label: "ORCID", href: "https://orcid.org/0000-0003-4932-9977" },
@@ -244,8 +247,14 @@ export const pageContent: Record<
         ],
       },
       {
-        heading: "Preprints",
-        placeholder: "Preprints will be listed here when available.",
+        heading: "In preparation",
+        items: [
+          {
+            title: "Magneto-oscillations in pentalayer graphene probed using Corbino geometry",
+            meta: "Article in preparation",
+            description: "V. Mantena, K. Swaminathan, and M. Kumar.",
+          },
+        ],
       },
       {
         heading: "Thesis",
@@ -295,9 +304,10 @@ export const pageContent: Record<
             dates: "2021–2026",
             degree: "D.Sc. in Engineering Physics",
             thesis:
-              "Quasiparticle localization and ergodicity-breaking in a flat-band lattice model",
+              "Quasiparticle localization and ergodicity-breaking in flat-band lattice models",
+            thesisLink: "https://urn.fi/URN:ISBN:978-952-64-3308-0",
             context:
-              "Quantum Dynamics Group, Department of Applied Physics. Advisor: Dr. Sebastiano Peotta; supervisor: Prof. Päivi Törmä. Defense scheduled for 21 August 2026.",
+              "Quantum Dynamics Group, Department of Applied Physics. Advisor: Dr. Sebastiano Peotta; supervisor: Prof. Päivi Törmä. Public defense: 21 August 2026.",
           },
           {
             institution: "Ludwig-Maximilians-Universität München",
@@ -408,31 +418,28 @@ export const pageContent: Record<
             ],
           },
           {
-            conference: "Physics Days 2026, Finnish Physical Society",
-            location: "Location to be added",
-            date: "2026",
-            title: "Talk title to be added",
+            conference: "Physics Days 2025, Finnish Physical Society",
+            location: "Oulu, Finland",
+            date: "March 2025",
+            title:
+              "Coexistence of ergodic and nonergodic behavior in a one-dimensional model of a flat band superconductor",
             links: [
-              { label: "event series", href: "https://www.fyysikkoseura.fi/language/en/events/physics-days" },
+              { label: "event", href: "https://www.oulu.fi/en/events/physics-days-2025" },
             ],
           },
           {
-            conference: "Physics Days 2025, Finnish Physical Society",
-            location: "Location to be added",
-            date: "2025",
-            title: "Talk title to be added",
-          },
-          {
             conference: "Physics Days 2024, Finnish Physical Society",
-            location: "Location to be added",
+            location: "Helsinki, Finland",
             date: "2024",
-            title: "Talk title to be added",
+            title:
+              "Coexistence of ergodic and nonergodic behavior in a one-dimensional toy model of a flat band superconductor",
           },
           {
             conference: "Physics Days 2023, Finnish Physical Society",
-            location: "Location to be added",
+            location: "Tampere, Finland",
             date: "2023",
-            title: "Talk title to be added",
+            title:
+              "Signatures of many-body localization of quasiparticles in a flat band superconductor",
           },
         ],
       },
@@ -517,56 +524,56 @@ export const pageContent: Record<
           {
             course: "Classical Mechanics",
             location: "Aalto University, Espoo",
-            date: "Semester + year to be added",
+            date: "2022–2025",
             context: "Teaching assistant · undergraduate course.",
           },
           {
             course: "Low Temperature Physics – Nanoelectronics",
             location: "Aalto University, Espoo",
-            date: "Semester + year to be added",
+            date: "2022–2025",
             context: "Teaching assistant · graduate course.",
           },
           {
             course: "Classical Mechanics",
             location: "Ludwig-Maximilians-Universität München",
-            date: "Semester + year to be added",
+            date: "2017–2019",
             context: "Teaching assistant · undergraduate course.",
           },
           {
             course: "Mathematical Methods for Physics",
             location: "Ludwig-Maximilians-Universität München",
-            date: "Semester + year to be added",
+            date: "2017–2019",
             context: "Teaching assistant · undergraduate course.",
           },
           {
             course: "Theoretical Mechanics",
             location: "Ludwig-Maximilians-Universität München",
-            date: "Semester + year to be added",
+            date: "2017–2019",
             context: "Teaching assistant · undergraduate course.",
           },
           {
             course: "Quantum Mechanics",
             location: "Ludwig-Maximilians-Universität München",
-            date: "Semester + year to be added",
+            date: "2017–2019",
             context: "Teaching assistant · undergraduate course.",
           },
           {
             course: "Thermodynamics and Statistical Physics",
             location: "Ludwig-Maximilians-Universität München",
-            date: "Semester + year to be added",
+            date: "2017–2019",
             context: "Teaching assistant · undergraduate course.",
           },
           {
             course: "Advanced Statistical Physics",
             location: "Ludwig-Maximilians-Universität München",
-            date: "Semester + year to be added",
+            date: "2017–2019",
             context:
               "Teaching assistant · graduate course, with additional course-material support.",
           },
           {
             course: "Mathematical Methods for Physicists",
             location: "Ludwig-Maximilians-Universität München",
-            date: "Semester + year to be added",
+            date: "2018–2019",
             context:
               "Proofreading assistance for the course material by A. Altland and J. von Delft.",
           },

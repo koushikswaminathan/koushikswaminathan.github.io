@@ -130,14 +130,20 @@ export default function Home() {
           </div>
           <div className="news-list">
             {newsItems.map((item) => (
-              <article className="news-item" key={`${item.date}-${item.title}`}>
+              <a
+                className="news-item"
+                key={`${item.date}-${item.title}`}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <time>{item.date}</time>
                 <div>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
                 </div>
                 <span aria-hidden="true">↗</span>
-              </article>
+              </a>
             ))}
           </div>
         </div>
@@ -150,9 +156,9 @@ export default function Home() {
             <p>I am currently completing my Doctorate in condensed matter theory at Aalto University.</p>
             <span
               className="email-obfuscated"
-              aria-label="koushik dot swaminathan at aalto dot fi"
+              aria-label="koushik dot swaminathan at protonmail dot com"
             >
-              koushik [dot] swaminathan [at] aalto [dot] fi
+              koushik [dot] swaminathan [at] protonmail [dot] com
             </span>
           </div>
         </div>

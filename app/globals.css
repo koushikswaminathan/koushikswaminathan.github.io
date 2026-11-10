@@ -84,6 +84,7 @@ a:focus-visible { outline: 2px solid var(--orange); outline-offset: 5px; }
 .news-item h3 { margin:0; color:var(--ink); font-family:var(--serif); font-size:clamp(1.6rem,2.5vw,2.35rem); font-weight:500; line-height:1.1; }
 .news-item p { max-width:830px; margin:12px 0 0; color:var(--muted); }
 .news-item > span { color:var(--blue); font-size:1.25rem; }
+.news-item:hover h3, .news-item:focus-visible h3 { color:var(--blue); }
 
 .home-contact { padding-block:clamp(90px,10vw,140px); background:var(--blue); color:white; }
 .home-contact .eyebrow { color:var(--ochre); }
