@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { newsItems } from "../data/site-config";
+import EmailLink from "./EmailLink";
 
 function LatticeField() {
   const hubs: { x: number; y: number; key: string }[] = [];
@@ -153,13 +154,8 @@ export default function Home() {
         <div className="shell contact-grid">
           <div><p className="eyebrow">Contact</p><h2>Research conversations and collaborations.</h2></div>
           <div>
-            <p>I am currently completing my Doctorate in condensed matter theory at Aalto University.</p>
-            <span
-              className="email-obfuscated"
-              aria-label="koushik dot swaminathan at protonmail dot com"
-            >
-              koushik [dot] swaminathan [at] protonmail [dot] com
-            </span>
+            <p>I completed my Doctorate in condensed matter theory at Aalto University in 2026.</p>
+            <EmailLink className="email-obfuscated" />
           </div>
         </div>
         <div className="shell profile-strip" aria-label="Research profiles">

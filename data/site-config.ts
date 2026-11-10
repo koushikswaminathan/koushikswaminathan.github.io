@@ -21,7 +21,7 @@ export const newsItems = [
     date: "21 Aug 2026",
     title: "Doctoral defense at Aalto University",
     description:
-      "I defended my doctoral thesis, “Quasiparticle localization and ergodicity-breaking in flat-band lattice models,” at Aalto University.",
+      "I defended my doctoral thesis, “Quasiparticle localization and ergodicity-breaking in flat-band lattice models,” at Aalto University. The degree was awarded on 28 September 2026.",
     href: "https://www.aalto.fi/en/events/public-defence-in-the-field-of-engineering-physics-msc-koushik-swaminathan",
   },
   {
@@ -99,7 +99,7 @@ export const pageContent: Record<
     eyebrow: "About",
     title: "The physicist behind the work.",
     intro:
-      "I am a condensed matter theorist completing my Doctorate at Aalto University. I study how collective quantum dynamics emerges when ordinary motion is restricted by lattice geometry, interference, interactions, or disorder.",
+      "I am a condensed matter theorist who completed my Doctorate at Aalto University. I study how collective quantum dynamics emerges when ordinary motion is restricted by lattice geometry, interference, interactions, or disorder.",
     sections: [
       {
         heading: "Background",
@@ -247,6 +247,10 @@ export const pageContent: Record<
         ],
       },
       {
+        heading: "Preprints",
+        placeholder: "Preprints will be listed here when available.",
+      },
+      {
         heading: "In preparation",
         items: [
           {
@@ -307,7 +311,7 @@ export const pageContent: Record<
               "Quasiparticle localization and ergodicity-breaking in flat-band lattice models",
             thesisLink: "https://urn.fi/URN:ISBN:978-952-64-3308-0",
             context:
-              "Quantum Dynamics Group, Department of Applied Physics. Advisor: Dr. Sebastiano Peotta; supervisor: Prof. Päivi Törmä. Public defense: 21 August 2026.",
+              "Quantum Dynamics Group, Department of Applied Physics. Advisor: Dr. Sebastiano Peotta; supervisor: Prof. Päivi Törmä. Public defense: 21 August 2026; degree awarded 28 September 2026.",
           },
           {
             institution: "Ludwig-Maximilians-Universität München",
@@ -415,6 +419,16 @@ export const pageContent: Record<
               "Signatures of many-body localization of quasiparticles in a flat band superconductor",
             links: [
               { label: "conference", href: "https://www.cdnbqs.uevora.pt/Web-2023/webpage" },
+            ],
+          },
+          {
+            conference: "Physics Days 2026, Finnish Physical Society",
+            location: "Espoo, Finland",
+            date: "March 2026",
+            title:
+              "Parity-dependent spectral statistics in a flat-band lattice model",
+            links: [
+              { label: "event series", href: "https://www.fyysikkoseura.fi/language/en/events/physics-days" },
             ],
           },
           {

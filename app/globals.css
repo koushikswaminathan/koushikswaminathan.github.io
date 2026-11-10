@@ -91,6 +91,7 @@ a:focus-visible { outline: 2px solid var(--orange); outline-offset: 5px; }
 .contact-grid { display:grid; grid-template-columns:minmax(0,1.4fr) minmax(280px,.6fr); gap:90px; align-items:end; }
 .contact-grid > div:last-child p { margin:0 0 32px; color:#e0eef1; }
 .email-obfuscated { display:inline-block; padding-bottom:5px; border-bottom:1px solid rgba(255,255,255,.65); color:white; font-weight:500; letter-spacing:.01em; }
+a.email-obfuscated { cursor:pointer; } a.email-obfuscated:hover { border-bottom-color:var(--ochre); color:var(--ochre); }
 .profile-strip { display:flex; align-items:center; justify-content:space-between; gap:40px; margin-top:74px; padding-top:28px; border-top:1px solid rgba(255,255,255,.35); }
 .profile-strip > span { color:var(--ochre); font-size:.72rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; }
 .profile-strip div { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:18px 30px; }
