@@ -25,6 +25,13 @@ export const newsItems = [
     href: "https://www.aalto.fi/en/events/public-defence-in-the-field-of-engineering-physics-msc-koushik-swaminathan",
   },
   {
+    date: "21 Aug 2026",
+    title: "Doctoral thesis available online",
+    description:
+      "The thesis is openly available in Aalto University’s thesis archive.",
+    href: "https://urn.fi/URN:ISBN:978-952-64-3308-0",
+  },
+  {
     date: "2026",
     title: "PRB Letter on the projected dice lattice",
     description:
@@ -251,18 +258,25 @@ export const pageContent: Record<
         placeholder: "Preprints will be listed here when available.",
       },
       {
-        heading: "In preparation",
+        heading: "Theses",
         items: [
           {
-            title: "Magneto-oscillations in pentalayer graphene probed using Corbino geometry",
-            meta: "Article in preparation",
-            description: "V. Mantena, K. Swaminathan, and M. Kumar.",
+            title:
+              "Quasiparticle localization and ergodicity-breaking in flat-band lattice models",
+            meta: "Doctoral thesis · Aalto University · 2026",
+            description:
+              "K. Swaminathan. Advisor: Dr. Sebastiano Peotta; supervisor: Prof. Päivi Törmä.",
+            links: [
+              { label: "Thesis", href: "https://urn.fi/URN:ISBN:978-952-64-3308-0" },
+            ],
+            identifiers: [
+              {
+                label: "URN",
+                value: "URN:ISBN:978-952-64-3308-0",
+                href: "https://urn.fi/URN:ISBN:978-952-64-3308-0",
+              },
+            ],
           },
-        ],
-      },
-      {
-        heading: "Thesis",
-        items: [
           {
             title: "Conductivity in a Honeycomb Sachdev–Ye–Kitaev Lattice",
             meta: "Master’s thesis · Ludwig-Maximilians-Universität München · 2019",
@@ -280,6 +294,16 @@ export const pageContent: Record<
           },
         ],
       },
+      {
+        heading: "In preparation",
+        items: [
+          {
+            title: "Magneto-oscillations in pentalayer graphene probed using Corbino geometry",
+            meta: "Article in preparation",
+            description: "V. Mantena, K. Swaminathan, and M. Kumar.",
+          },
+        ],
+      },
     ],
   },
   cv: {
@@ -293,10 +317,8 @@ export const pageContent: Record<
         href: "/CV_Swaminathan.pdf",
         note: "PDF",
       },
-      {
-        label: "Extended curriculum vitae",
-        note: "Coming later",
-      },
+      // Hidden for now. To restore, add back:
+      // { label: "Extended curriculum vitae", note: "Coming later" },
     ],
     sections: [
       {
@@ -306,7 +328,7 @@ export const pageContent: Record<
             institution: "Aalto University",
             location: "Finland",
             dates: "2021–2026",
-            degree: "D.Sc. in Engineering Physics",
+            degree: "D.Sc. (Tech.) in Engineering Physics",
             thesis:
               "Quasiparticle localization and ergodicity-breaking in flat-band lattice models",
             thesisLink: "https://urn.fi/URN:ISBN:978-952-64-3308-0",
@@ -359,33 +381,31 @@ export const pageContent: Record<
         ],
       },
       {
-        heading: "Teaching experience",
+        heading: "Teaching at Aalto University",
         teaching: [
-          {
-            course: "Classical Mechanics",
-            location: "Aalto University, Espoo",
-            date: "2022–2025",
-            context: "Teaching assistant · undergraduate course.",
-          },
           {
             course: "Low Temperature Physics – Nanoelectronics",
             location: "Aalto University, Espoo",
-            date: "2022–2025",
+            date: "Periods I–III, 2023–24",
             context: "Teaching assistant · graduate course.",
           },
+          {
+            course: "Classical Mechanics",
+            location: "Aalto University, Espoo",
+            date: "Periods I–II, 2024–25",
+            context: "Teaching assistant · undergraduate course.",
+          },
+        ],
+      },
+      {
+        heading: "Teaching at LMU Munich",
+        teaching: [
           {
             course: "Physics courses",
             location: "Ludwig-Maximilians-Universität München",
             date: "2017–2019",
             context:
               "Teaching assistant for undergraduate and graduate courses; full course list on the Teaching page.",
-          },
-          {
-            course: "Course material support",
-            location: "Ludwig-Maximilians-Universität München",
-            date: "2018–2019",
-            context:
-              "Advanced Statistical Physics and proofreading support for Mathematical Methods for Physicists.",
           },
         ],
       },
@@ -534,19 +554,25 @@ export const pageContent: Record<
       "Undergraduate and graduate teaching experience at Aalto University and Ludwig-Maximilians-Universität München.",
     sections: [
       {
+        heading: "Aalto University",
         teaching: [
-          {
-            course: "Classical Mechanics",
-            location: "Aalto University, Espoo",
-            date: "2022–2025",
-            context: "Teaching assistant · undergraduate course.",
-          },
           {
             course: "Low Temperature Physics – Nanoelectronics",
             location: "Aalto University, Espoo",
-            date: "2022–2025",
+            date: "Periods I–III, 2023–24",
             context: "Teaching assistant · graduate course.",
           },
+          {
+            course: "Classical Mechanics",
+            location: "Aalto University, Espoo",
+            date: "Periods I–II, 2024–25",
+            context: "Teaching assistant · undergraduate course.",
+          },
+        ],
+      },
+      {
+        heading: "LMU Munich",
+        teaching: [
           {
             course: "Classical Mechanics",
             location: "Ludwig-Maximilians-Universität München",
@@ -582,7 +608,7 @@ export const pageContent: Record<
             location: "Ludwig-Maximilians-Universität München",
             date: "2017–2019",
             context:
-              "Teaching assistant · graduate course, with additional course-material support.",
+              "Teaching assistant · graduate course, with additional course-material support (2018–2019).",
           },
           {
             course: "Mathematical Methods for Physicists",
