@@ -381,31 +381,23 @@ export const pageContent: Record<
         ],
       },
       {
-        heading: "Teaching at Aalto University",
+        heading: "Teaching experience",
         teaching: [
           {
-            course: "Low Temperature Physics – Nanoelectronics",
-            location: "Aalto University, Espoo",
-            date: "Periods I–III, 2023–24",
-            context: "Teaching assistant · graduate course.",
+            course: "Aalto University",
+            location: "Espoo, Finland",
+            date: "2023–2025",
+            context:
+              "Teaching assistant · graduate and undergraduate physics courses.",
+            links: [{ label: "course details", href: "/teaching" }],
           },
           {
-            course: "Classical Mechanics",
-            location: "Aalto University, Espoo",
-            date: "Periods I–II, 2024–25",
-            context: "Teaching assistant · undergraduate course.",
-          },
-        ],
-      },
-      {
-        heading: "Teaching at LMU Munich",
-        teaching: [
-          {
-            course: "Physics courses",
-            location: "Ludwig-Maximilians-Universität München",
+            course: "Ludwig-Maximilians-Universität München",
+            location: "Munich, Germany",
             date: "2017–2019",
             context:
-              "Teaching assistant for undergraduate and graduate courses; full course list on the Teaching page.",
+              "Teaching assistant · undergraduate and graduate physics courses.",
+            links: [{ label: "course details", href: "/teaching" }],
           },
         ],
       },

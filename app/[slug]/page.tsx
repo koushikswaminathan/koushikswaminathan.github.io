@@ -102,11 +102,19 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
                       </div>
                       <div className="teaching-context">
                         <p>{entry.context}</p>
-                        {entry.links?.map((link) => (
-                          <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
-                            ({link.label} ↗)
-                          </a>
-                        ))}
+                        {entry.links?.map((link) => {
+                          const external = link.href.startsWith("http");
+                          return (
+                            <a
+                              key={link.href}
+                              href={link.href}
+                              target={external ? "_blank" : undefined}
+                              rel={external ? "noreferrer" : undefined}
+                            >
+                              ({link.label} {external ? "↗" : "→"})
+                            </a>
+                          );
+                        })}
                       </div>
                     </article>
                   ))}
