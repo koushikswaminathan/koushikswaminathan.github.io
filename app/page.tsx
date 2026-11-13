@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { homeAbout, newsItems } from "../data/site-config";
+import { homeAbout, links, newsItems, pageContent, profile, type NewsItem } from "../data/site-config";
 import EmailLink from "./EmailLink";
+import { LinkPills, PublicationList, RichText } from "./components";
 
 function LatticeField() {
   const hubs: { x: number; y: number; key: string }[] = [];
@@ -76,91 +77,135 @@ function LatticeField() {
   );
 }
 
+function groupByYear(items: NewsItem[]) {
+  const groups: { year: string; items: NewsItem[] }[] = [];
+  for (const item of items) {
+    const year = item.date.slice(-4);
+    const group = groups.find((entry) => entry.year === year);
+    if (group) group.items.push(item);
+    else groups.push({ year, items: [item] });
+  }
+  return groups;
+}
+
 export default function Home() {
+  const researchThemes = pageContent.research.sections.flatMap((section) =>
+    (section.items ?? []).map((item) => ({ ...item, group: section.heading })),
+  );
+
   return (
     <main>
       <section className="hero">
         <LatticeField />
         <div className="hero-grid shell">
           <div className="hero-copy">
-            <p className="eyebrow">Condensed matter theory</p>
-            <h1>Koushik<br />Swaminathan</h1>
-            <p className="hero-statement">
-              I study constrained quantum dynamics, ergodicity breaking, and
-              interaction-driven transport in quantum many-body systems.
-            </p>
-            <p className="affiliation">Doctoral researcher at Aalto University, Finland.</p>
-            <div className="hero-actions">
-              <Link className="button button-primary" href="/research">Explore research <span>→</span></Link>
-              <Link className="button button-secondary" href="/publications">Publications <span>→</span></Link>
-            </div>
+            <p className="eyebrow">{profile.field}</p>
+            <h1>{profile.name}</h1>
+            <p className="hero-statement">{profile.statement}</p>
+            <p className="affiliation">{profile.affiliation}</p>
+            <nav className="profile-pills" aria-label="Profiles and documents">
+              <a className="pill-primary" href={links.cv}>CV <small>PDF</small></a>
+              <a href={links.scholar} target="_blank" rel="noreferrer">Google Scholar</a>
+              <a href={links.orcid} target="_blank" rel="noreferrer">ORCID</a>
+              <a href={links.arxiv} target="_blank" rel="noreferrer">arXiv</a>
+              <a href={links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+              <EmailLink label="Email" />
+            </nav>
           </div>
           <div className="portrait-column">
             <div className="portrait-frame">
-              <div className="portrait-placeholder"><span>KS</span><small>Portrait to be added</small></div>
+              {profile.portrait ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={profile.portrait} alt={`Portrait of ${profile.name}`} />
+              ) : (
+                <div className="portrait-placeholder" aria-hidden="true"><span>KS</span></div>
+              )}
             </div>
-            <p>Condensed matter theory · Quantum many-body physics</p>
           </div>
         </div>
       </section>
 
-      <section className="home-intro">
+      <section className="home-intro" id="about">
         <div className="shell intro-grid">
           <p className="eyebrow">{homeAbout.eyebrow}</p>
           <div>
             <h2>{homeAbout.heading}</h2>
             {homeAbout.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
+              <p key={paragraph}><RichText text={paragraph} /></p>
             ))}
-            <Link className="text-link" href="/research">Read about my research <span>→</span></Link>
           </div>
         </div>
       </section>
 
-      <section className="news-section">
+      <section className="home-section">
         <div className="shell">
           <div className="section-topline">
             <div>
-              <p className="eyebrow">Recent news</p>
-              <h2>Updates and activity.</h2>
+              <p className="eyebrow">Research</p>
+              <h2>Research themes.</h2>
             </div>
-            <p className="editing-note">Selected recent research and career updates.</p>
+            <Link className="see-all" href="/research">All research <span>→</span></Link>
           </div>
-          <div className="news-list">
-            {newsItems.map((item) => (
-              <a
-                className="news-item"
-                key={`${item.date}-${item.title}`}
-                href={item.href}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <time>{item.date}</time>
-                <div>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </div>
-                <span aria-hidden="true">↗</span>
-              </a>
+          <div className="theme-grid">
+            {researchThemes.map((theme) => (
+              <Link className="theme-card" href="/research" key={theme.title}>
+                <span className="theme-group">{theme.group}</span>
+                <h3>{theme.title}</h3>
+                {theme.meta && <span className="theme-meta">{theme.meta}</span>}
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="home-contact">
+      <section className="home-section news-section" id="news">
+        <div className="shell">
+          <div className="section-topline">
+            <div>
+              <p className="eyebrow">News</p>
+              <h2>Recent updates.</h2>
+            </div>
+          </div>
+          <div className="news-years">
+            {groupByYear(newsItems).map((group) => (
+              <div className="news-year" key={group.year}>
+                <h3>{group.year}</h3>
+                <ul>
+                  {group.items.map((item) => (
+                    <li key={`${item.date}-${item.text}`}>
+                      <time>{item.date.slice(0, -5) || item.date}</time>
+                      <p>
+                        <RichText text={item.text} />
+                        {item.links && <> <LinkPills links={item.links} /></>}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="home-section">
+        <div className="shell">
+          <div className="section-topline">
+            <div>
+              <p className="eyebrow">Publications</p>
+              <h2>Selected publications.</h2>
+            </div>
+            <Link className="see-all" href="/publications">All publications <span>→</span></Link>
+          </div>
+          <PublicationList selectedOnly />
+        </div>
+      </section>
+
+      <section className="home-contact" id="contact">
         <div className="shell contact-grid">
           <div><p className="eyebrow">Contact</p><h2>Research conversations and collaborations.</h2></div>
           <div>
-            <p>I completed my Doctorate in condensed matter theory at Aalto University in 2026.</p>
+            <p>For research discussions, collaborations, or seminar invitations, email is the best way to reach me.</p>
             <EmailLink className="email-obfuscated" />
-          </div>
-        </div>
-        <div className="shell profile-strip" aria-label="Research profiles">
-          <span>Research profiles</span>
-          <div>
-            <a href="https://scholar.google.com/citations?hl=en&user=PzejhKkAAAAJ" target="_blank" rel="noreferrer">Google Scholar ↗</a>
-            <a href="https://orcid.org/0000-0003-4932-9977" target="_blank" rel="noreferrer">ORCID ↗</a>
-            <a href="https://www.linkedin.com/in/koushikswaminathan/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
           </div>
         </div>
       </section>

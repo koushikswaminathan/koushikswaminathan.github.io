@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { navigation, pageContent } from "../../data/site-config";
 import NotesIndex from "../NotesIndex";
+import { LinkPills, PublicationList } from "../components";
 
 export function generateStaticParams() {
   return navigation.filter((item) => item.visible).map((item) => ({ slug: item.slug }));
@@ -31,7 +32,7 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
               <div className="hero-documents">
                 {page.heroDocuments.map((document) =>
                   document.href ? (
-                    <a key={document.label} href={document.href}>
+                    <a key={document.label} href={document.href} {...(document.href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}>
                       {document.label} <small>{document.note} ↗</small>
                     </a>
                   ) : (
@@ -48,7 +49,9 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
       <section className="page-content">
         <div className="shell content-stack">
           {slug === "notes" && <NotesIndex />}
-          {page.sections.map((section, index) => (
+          {page.sections.map((section, index) => section.publicationList ? (
+            <PublicationList key={`publications-${index}`} />
+          ) : (
             <section className="content-section" key={`${section.heading ?? "items"}-${index}`}>
               {section.heading && <h2>{section.heading}</h2>}
               {section.text && <div className="prose">{section.text.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>}
@@ -80,11 +83,9 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
                       <p className="education-degree">{entry.degree}</p>
                       <div className="education-thesis">
                         <span>{entry.thesis}</span>
-                        {entry.thesisLink ? (
+                        {entry.thesisLink && (
                           <a href={entry.thesisLink} target="_blank" rel="noreferrer">(thesis ↗)</a>
-                        ) : entry.publicThesis !== false ? (
-                          <small>(thesis link to be added)</small>
-                        ) : null}
+                        )}
                       </div>
                       {entry.context && <p className="education-context">{entry.context}</p>}
                     </article>
@@ -120,7 +121,6 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
                   ))}
                 </div>
               )}
-              {section.placeholder && <div className="section-placeholder">{section.placeholder}</div>}
               {section.presentations && (
                 <div className="presentation-list">
                   {section.presentations.map((presentation) => (
@@ -136,6 +136,7 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
                       </div>
                       <div className="presentation-title">
                         <h3>{presentation.title}</h3>
+                        {presentation.badge && <span className="badge">{presentation.badge}</span>}
                         {presentation.links && (
                           <span className="presentation-links">
                             {presentation.links.map((link) => (
@@ -160,30 +161,8 @@ export default async function ContentPage({ params }: { params: Promise<{ slug: 
                   <div>
                     {item.meta && <p className="item-meta">{item.meta}</p>}
                     <h3>{item.title}</h3><p>{item.description}</p>
-                    {item.identifiers && (
-                      <div className="item-identifiers">
-                        {item.identifiers.map((identifier) => (
-                          <a key={identifier.value} href={identifier.href} target="_blank" rel="noreferrer">
-                            <span>{identifier.label}</span> {identifier.value}
-                          </a>
-                        ))}
-                      </div>
-                    )}
+                    {item.links && <LinkPills links={item.links} />}
                   </div>
-                  {item.links && (
-                    <div className="item-links">
-                      {item.links.map((link) => (
-                        <a
-                          key={link.href}
-                          href={link.href}
-                          target={link.href.startsWith("http") ? "_blank" : undefined}
-                          rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-                        >
-                          {link.label} ↗
-                        </a>
-                      ))}
-                    </div>
-                  )}
                 </article>
               ))}</div>}
             </section>

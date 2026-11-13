@@ -1,63 +1,205 @@
 /**
  * SITE EDITING GUIDE
  * ------------------
- * Set `visible` to false to remove a page from the navigation and disable its route.
- * Set it back to true to restore the page.
- * To add a new optional page, add one entry here and a matching entry in pageContent.
+ * Almost everything on the site lives in this file.
+ *
+ * - `navigation`: set `visible` to false to hide a page (and its route).
+ * - `profile`: name, one-line role, home-page bio, portrait, and profile links.
+ * - `newsItems`: home-page news. Newest first; grouped by year automatically.
+ * - `publications`: every article / preprint / thesis. Entries with
+ *   `selected: true` also appear on the home page. Your own name (`selfName`)
+ *   is highlighted automatically in author lists.
+ * - `pageContent`: the text of each sub-page.
  */
 export const navigation = [
   { slug: "research", label: "Research", href: "/research", visible: true },
   { slug: "publications", label: "Publications", href: "/publications", visible: true },
-  { slug: "cv", label: "CV", href: "/cv", visible: true },
   { slug: "talks", label: "Talks", href: "/talks", visible: true, optional: true },
   { slug: "teaching", label: "Teaching", href: "/teaching", visible: true, optional: true },
+  { slug: "cv", label: "CV", href: "/cv", visible: true },
   { slug: "notes", label: "Notes", href: "/notes", visible: false, optional: true },
   { slug: "software", label: "Software", href: "/software", visible: false, optional: true },
   { slug: "about", label: "About", href: "/about", visible: false },
 ] as const;
 
-/** Home-page "About" band (replaces the separate About page, which is hidden). */
+export type PageLink = { label: string; href: string };
+
+/** The name as it appears in author lists; it is highlighted wherever it occurs. */
+export const selfName = "K. Swaminathan";
+
+export const links = {
+  cv: "/CV_Swaminathan.pdf",
+  scholar: "https://scholar.google.com/citations?hl=en&user=PzejhKkAAAAJ",
+  orcid: "https://orcid.org/0000-0003-4932-9977",
+  arxiv: "https://arxiv.org/search/?searchtype=author&query=Swaminathan%2C+Koushik",
+  linkedin: "https://www.linkedin.com/in/koushikswaminathan/",
+  aalto: "https://www.aalto.fi/en/department-of-applied-physics",
+  group: "https://www.aalto.fi/en/department-of-applied-physics/quantum-dynamics-qd",
+  thesis: "https://urn.fi/URN:ISBN:978-952-64-3308-0",
+};
+
+export const profile = {
+  name: "Koushik Swaminathan",
+  field: "Condensed matter theory",
+  /** Short line under the name. */
+  statement:
+    "I study constrained quantum dynamics, ergodicity breaking, and interaction-driven transport in quantum many-body systems.",
+  /** Credential line. Update this when you start a new position. */
+  affiliation: "D.Sc. (Tech.) in Engineering Physics, Aalto University, 2026",
+  /**
+   * Path to a portrait in /public (e.g. "/portrait.jpg"). While null, a monogram
+   * tile is shown instead.
+   */
+  portrait: null as string | null,
+};
+
+/** Home-page "About" band. Inline links use the form [text](url). */
 export const homeAbout = {
   eyebrow: "About",
   heading: "Collective dynamics under strong constraints.",
   paragraphs: [
-    "My work examines how geometry, interference, interactions, and disorder shape transport, relaxation, and long-time memory. I combine analytical approaches with exact diagonalization, projected Hamiltonians, real-time dynamics, and spectral statistics.",
-    "I completed my doctorate in the Quantum Dynamics Group at Aalto University, studying quasiparticle localization and ergodicity breaking in flat-band lattice models. Before that, I earned an M.Sc. in Physics at Ludwig-Maximilians-Universität München and a B.Tech. in Electronics and Communication Engineering at NIT Tiruchirappalli.",
+    "I am a condensed matter theorist. My work examines how lattice geometry, interference, interactions, and disorder shape transport, relaxation, and long-time memory in quantum many-body systems. I combine analytical approaches with exact diagonalization, projected Hamiltonians, real-time dynamics, and spectral statistics.",
+    "I completed my doctorate in the [Quantum Dynamics Group](https://www.aalto.fi/en/department-of-applied-physics/quantum-dynamics-qd) at Aalto University, advised by Dr. Sebastiano Peotta and supervised by Prof. Päivi Törmä, with a [thesis](https://urn.fi/URN:ISBN:978-952-64-3308-0) on quasiparticle localization and ergodicity breaking in flat-band lattice models. Before that, I earned an M.Sc. in Physics at LMU Munich and a B.Tech. in Electronics and Communication Engineering at NIT Tiruchirappalli.",
   ],
 };
 
-export const newsItems = [
+export type NewsItem = {
+  /** e.g. "Aug 2026". The year (last 4 characters) is used for grouping. */
+  date: string;
+  text: string;
+  links?: PageLink[];
+};
+
+export const newsItems: NewsItem[] = [
   {
-    date: "21 Aug 2026",
-    title: "Doctoral defense at Aalto University",
-    description:
-      "I defended my doctoral thesis, “Quasiparticle localization and ergodicity-breaking in flat-band lattice models,” at Aalto University. The degree was awarded on 28 September 2026.",
-    href: "https://www.aalto.fi/en/events/public-defence-in-the-field-of-engineering-physics-msc-koushik-swaminathan",
+    date: "Sep 2026",
+    text: "Awarded the D.Sc. (Tech.) degree in Engineering Physics by Aalto University (28 September).",
   },
   {
-    date: "21 Aug 2026",
-    title: "Doctoral thesis available online",
-    description:
-      "The thesis is openly available in Aalto University’s thesis archive.",
-    href: "https://urn.fi/URN:ISBN:978-952-64-3308-0",
-  },
-  {
-    date: "2026",
-    title: "PRB Letter on the projected dice lattice",
-    description:
-      "Parity-dependent double degeneracy and spectral statistics in the projected dice lattice was published in Physical Review B.",
-    href: "https://doi.org/10.1103/xxzp-ct39",
+    date: "Aug 2026",
+    text: "Defended my doctoral thesis, “Quasiparticle localization and ergodicity breaking in flat-band lattice models.” Opponent: Prof. Sebastian Huber (ETH Zürich).",
+    links: [
+      { label: "thesis", href: links.thesis },
+      {
+        label: "announcement",
+        href: "https://www.aalto.fi/en/events/public-defence-in-the-field-of-engineering-physics-msc-koushik-swaminathan",
+      },
+    ],
   },
   {
     date: "Jul 2026",
-    title: "Talk at CMPCity 2026",
-    description:
-      "Presented parity-dependent spectral statistics in a flat-band lattice model in London.",
-    href: "https://research.kent.ac.uk/pqm/cmpcity2026/",
+    text: "Our Letter on parity-dependent double degeneracy in the projected dice lattice is published in Physical Review B.",
+    links: [{ label: "paper", href: "https://doi.org/10.1103/xxzp-ct39" }],
+  },
+  {
+    date: "Jul 2026",
+    text: "Talk on parity-dependent spectral statistics in a flat-band lattice model at Condensed Matter Physics in the City 2026, London.",
+    links: [{ label: "conference", href: "https://research.kent.ac.uk/pqm/cmpcity2026/" }],
+  },
+  {
+    date: "Feb 2026",
+    text: "New preprint on the projected dice lattice with A. Moustaj, J. L. Lado, and S. Peotta.",
+    links: [{ label: "arXiv", href: "https://arxiv.org/abs/2602.11844" }],
+  },
+  {
+    date: "Sep 2025",
+    text: "Poster at BEC 2025 in Sant Feliu de Guíxols, Spain, supported by a conference travel grant.",
+    links: [{ label: "conference", href: "https://indico.phys.ethz.ch/event/143/" }],
+  },
+  {
+    date: "Mar 2025",
+    text: "Our paper on coexisting ergodic and nonergodic behavior in a flat-band superconductor is published in Physical Review Research.",
+    links: [{ label: "paper", href: "https://doi.org/10.1103/PhysRevResearch.7.013318" }],
   },
 ];
 
-export type PageLink = { label: string; href: string };
+export type Publication = {
+  title: string;
+  authors: string[];
+  /** e.g. "Physical Review B 114, L051108" */
+  venue?: string;
+  year: string;
+  /** Small highlighted tag, e.g. "Letter". */
+  badge?: string;
+  links?: PageLink[];
+  /** Shown on the home page under "Selected publications". */
+  selected?: boolean;
+};
+
+export const publications: { heading: string; entries: Publication[] }[] = [
+  {
+    heading: "Journal articles",
+    entries: [
+      {
+        title:
+          "Parity-dependent double degeneracy and spectral statistics in the projected dice lattice",
+        authors: ["K. Swaminathan", "A. Moustaj", "J. L. Lado", "S. Peotta"],
+        venue: "Physical Review B 114, L051108",
+        year: "2026",
+        badge: "Letter",
+        selected: true,
+        links: [
+          { label: "paper", href: "https://doi.org/10.1103/xxzp-ct39" },
+          { label: "arXiv", href: "https://arxiv.org/abs/2602.11844" },
+          { label: "data", href: "https://doi.org/10.5281/zenodo.20117613" },
+        ],
+      },
+      {
+        title:
+          "Coexistence of ergodic and nonergodic behavior and level spacing statistics in a one-dimensional model of a flat band superconductor",
+        authors: ["M. Teeriaho", "V.-V. Linho", "K. Swaminathan", "S. Peotta"],
+        venue: "Physical Review Research 7, 013318",
+        year: "2025",
+        selected: true,
+        links: [
+          { label: "paper", href: "https://doi.org/10.1103/PhysRevResearch.7.013318" },
+          { label: "arXiv", href: "https://arxiv.org/abs/2411.09196" },
+        ],
+      },
+      {
+        title: "Signatures of many-body localization of quasiparticles in a flat band superconductor",
+        authors: ["K. Swaminathan", "P. Tadros", "S. Peotta"],
+        venue: "Physical Review Research 5, 043215",
+        year: "2023",
+        selected: true,
+        links: [
+          { label: "paper", href: "https://doi.org/10.1103/PhysRevResearch.5.043215" },
+          { label: "arXiv", href: "https://arxiv.org/abs/2302.06250" },
+        ],
+      },
+    ],
+  },
+  {
+    heading: "In preparation",
+    entries: [
+      {
+        title: "Magneto-oscillations in pentalayer graphene probed using Corbino geometry",
+        authors: ["V. Mantena", "K. Swaminathan", "M. Kumar"],
+        year: "In preparation",
+      },
+    ],
+  },
+  {
+    heading: "Theses",
+    entries: [
+      {
+        title: "Quasiparticle localization and ergodicity breaking in flat-band lattice models",
+        authors: ["K. Swaminathan"],
+        venue: "Doctoral thesis, Aalto University",
+        year: "2026",
+        links: [{ label: "thesis", href: links.thesis }],
+      },
+      {
+        title: "Conductivity in a Honeycomb Sachdev–Ye–Kitaev Lattice",
+        authors: ["K. Swaminathan"],
+        venue: "Master’s thesis, LMU Munich",
+        year: "2019",
+        links: [{ label: "thesis", href: "https://doi.org/10.5281/zenodo.20020872" }],
+      },
+    ],
+  },
+];
+
 export type DocumentLink = {
   label: string;
   href?: string;
@@ -71,7 +213,6 @@ export type EducationEntry = {
   thesis: string;
   context?: string;
   thesisLink?: string;
-  publicThesis?: boolean;
 };
 export type TeachingEntry = {
   course: string;
@@ -85,6 +226,8 @@ export type Presentation = {
   location: string;
   date: string;
   title: string;
+  /** Small highlighted tag, e.g. a travel grant. */
+  badge?: string;
   links?: PageLink[];
 };
 export type PageSection = {
@@ -93,18 +236,14 @@ export type PageSection = {
   documents?: DocumentLink[];
   education?: EducationEntry[];
   teaching?: TeachingEntry[];
-  placeholder?: string;
   presentations?: Presentation[];
+  /** Renders the shared `publications` list. */
+  publicationList?: boolean;
   items?: {
     title: string;
     meta?: string;
     description: string;
     links?: PageLink[];
-    identifiers?: {
-      label: string;
-      value: string;
-      href: string;
-    }[];
   }[];
 };
 
@@ -112,41 +251,13 @@ export const pageContent: Record<
   string,
   { eyebrow: string; title: string; intro: string; heroDocuments?: DocumentLink[]; sections: PageSection[] }
 > = {
+  // Hidden page (navigation `visible: false`); its content now lives on the home page.
   about: {
     eyebrow: "About",
     title: "The physicist behind the work.",
     intro:
-      "I am a condensed matter theorist who completed my Doctorate at Aalto University. I study how collective quantum dynamics emerges when ordinary motion is restricted by lattice geometry, interference, interactions, or disorder.",
-    sections: [
-      {
-        heading: "Background",
-        text: [
-          "My doctoral research in the Quantum Dynamics Group focuses on quasiparticle localization and ergodicity breaking in flat-band lattice models. These systems provide a controlled setting in which destructive interference suppresses conventional single-particle transport and exposes the many-body processes generated by interactions.",
-          "Before joining Aalto University, I completed an M.Sc. in Physics at Ludwig-Maximilians-Universität München, where I studied transport in a honeycomb lattice of Sachdev-Ye-Kitaev dots, and a B.Tech. in Electronics and Communication Engineering at the National Institute of Technology Tiruchirappalli.",
-        ],
-      },
-      {
-        heading: "Current direction",
-        text: [
-          "For my postdoctoral work, I am interested in going deeper into nonequilibrium quantum many-body physics while moving toward quantum simulation and experimentally relevant systems. I also want to broaden my numerical toolkit through tensor-network methods.",
-        ],
-      },
-      {
-        heading: "Profiles",
-        items: [
-          {
-            title: "Research profiles and contact",
-            description:
-              "Google Scholar, ORCID, and LinkedIn.",
-            links: [
-              { label: "Google Scholar", href: "https://scholar.google.com/citations?hl=en&user=PzejhKkAAAAJ" },
-              { label: "ORCID", href: "https://orcid.org/0000-0003-4932-9977" },
-              { label: "LinkedIn", href: "https://www.linkedin.com/in/koushikswaminathan/" },
-            ],
-          },
-        ],
-      },
-    ],
+      "I am a condensed matter theorist who completed my doctorate at Aalto University. I study how collective quantum dynamics emerges when ordinary motion is restricted by lattice geometry, interference, interactions, or disorder.",
+    sections: [],
   },
   research: {
     eyebrow: "Research",
@@ -159,18 +270,21 @@ export const pageContent: Record<
         items: [
           {
             title: "Flat-band many-body physics",
+            meta: "2022–present · Aalto University",
             description:
-              "I study interacting flat-band lattice models using analytical approaches, exact diagonalization, real-time dynamics, and symmetry-resolved spectral statistics. This work examines interaction-driven transport, quasiparticle localization, long-time memory, and hidden organization in many-body spectra.",
+              "In a flat band, destructive interference stops single particles from moving, so any transport must come from interactions. I study interacting flat-band lattice models with analytical approaches, exact diagonalization, real-time dynamics, and symmetry-resolved spectral statistics. Results include exact many-body eigenstates of projected Hubbard Hamiltonians, the coexistence of quasiparticle localization with pairing transport, and parity-dependent level statistics with exact double degeneracies in the projected dice lattice.",
             links: [
-              { label: "PRB Letter", href: "https://doi.org/10.1103/xxzp-ct39" },
+              { label: "PRB 2026", href: "https://doi.org/10.1103/xxzp-ct39" },
               { label: "PRR 2025", href: "https://doi.org/10.1103/PhysRevResearch.7.013318" },
               { label: "PRR 2023", href: "https://doi.org/10.1103/PhysRevResearch.5.043215" },
+              { label: "thesis", href: links.thesis },
             ],
           },
           {
             title: "Multilayer graphene",
+            meta: "2025–present · with the Low Temperature Laboratory, Aalto",
             description:
-              "I use tight-binding and continuum calculations to study pentalayer graphene, including Landau-level structure and Shubnikov–de Haas oscillations. The calculations are compared with Corbino-geometry transport measurements to identify signatures of Lifshitz transitions.",
+              "I use tight-binding and continuum (k·p) calculations to study pentalayer graphene, including Landau-level structure and Shubnikov–de Haas oscillations. The calculations are compared with Corbino-geometry transport measurements performed at the Low Temperature Laboratory, Aalto University, to identify signatures of Lifshitz transitions.",
           },
         ],
       },
@@ -179,156 +293,43 @@ export const pageContent: Record<
         items: [
           {
             title: "Transport in a honeycomb Sachdev–Ye–Kitaev lattice",
+            meta: "2018–2019 · LMU Munich",
             description:
               "For my Master’s thesis, I developed a model of itinerant electrons coupled to Sachdev–Ye–Kitaev dots on a honeycomb lattice. I derived transport coefficients analytically and found a finite-temperature crossover from a Dirac-fermion regime to an incoherent strange-metal phase.",
-            links: [
-              { label: "Master’s thesis", href: "https://zenodo.org/records/20020872" },
-            ],
+            links: [{ label: "Master’s thesis", href: "https://doi.org/10.5281/zenodo.20020872" }],
           },
         ],
       },
       {
         heading: "Future interests",
         text: [
-          "For my postdoctoral work, I want to continue studying nonequilibrium quantum many-body physics while moving toward quantum simulation and systems with closer experimental connections. I am also interested in broadening the numerical methods I use, particularly through tensor-network approaches.",
+          "I want to continue studying nonequilibrium quantum many-body physics while moving toward quantum simulation and systems with closer experimental connections. I am also interested in broadening the numerical methods I use, particularly through tensor-network approaches.",
         ],
       },
     ],
   },
   publications: {
     eyebrow: "Publications",
-    title: "Articles and preprints.",
+    title: "Articles, preprints, and theses.",
     intro:
-      "Peer-reviewed articles and preprints in quantum many-body physics and quantum materials.",
-    sections: [
-      {
-        heading: "Published articles",
-        items: [
-          {
-            title:
-              "Parity-dependent double degeneracy and spectral statistics in the projected dice lattice",
-            meta: "Physical Review B 114, L051108 · 2026",
-            description:
-              "K. Swaminathan, A. Moustaj, J. Lado, and S. Peotta.",
-            links: [
-              { label: "Article", href: "https://doi.org/10.1103/xxzp-ct39" },
-              { label: "Preprint", href: "https://arxiv.org/abs/2602.11844" },
-              { label: "Data", href: "https://doi.org/10.5281/zenodo.20020871" },
-            ],
-            identifiers: [
-              {
-                label: "Article DOI",
-                value: "10.1103/xxzp-ct39",
-                href: "https://doi.org/10.1103/xxzp-ct39",
-              },
-              {
-                label: "Dataset DOI",
-                value: "10.5281/zenodo.20020871",
-                href: "https://doi.org/10.5281/zenodo.20020871",
-              },
-            ],
-          },
-          {
-            title:
-              "Coexistence of ergodic and nonergodic behavior and level spacing statistics in a one-dimensional model of a flat band superconductor",
-            meta: "Physical Review Research 7, 013318 · 2025",
-            description:
-              "M. Teeriaho, V.-V. Linho, K. Swaminathan, and S. Peotta.",
-            links: [
-              { label: "Article", href: "https://doi.org/10.1103/PhysRevResearch.7.013318" },
-            ],
-            identifiers: [
-              {
-                label: "DOI",
-                value: "10.1103/PhysRevResearch.7.013318",
-                href: "https://doi.org/10.1103/PhysRevResearch.7.013318",
-              },
-            ],
-          },
-          {
-            title:
-              "Signatures of many-body localization of quasiparticles in a flat band superconductor",
-            meta: "Physical Review Research 5, 043215 · 2023",
-            description: "K. Swaminathan, P. Tadros, and S. Peotta.",
-            links: [
-              { label: "Article", href: "https://doi.org/10.1103/PhysRevResearch.5.043215" },
-            ],
-            identifiers: [
-              {
-                label: "DOI",
-                value: "10.1103/PhysRevResearch.5.043215",
-                href: "https://doi.org/10.1103/PhysRevResearch.5.043215",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        heading: "Preprints",
-        placeholder: "Preprints will be listed here when available.",
-      },
-      {
-        heading: "Theses",
-        items: [
-          {
-            title:
-              "Quasiparticle localization and ergodicity-breaking in flat-band lattice models",
-            meta: "Doctoral thesis · Aalto University · 2026",
-            description:
-              "K. Swaminathan. Advisor: Dr. Sebastiano Peotta; supervisor: Prof. Päivi Törmä.",
-            links: [
-              { label: "Thesis", href: "https://urn.fi/URN:ISBN:978-952-64-3308-0" },
-            ],
-            identifiers: [
-              {
-                label: "URN",
-                value: "URN:ISBN:978-952-64-3308-0",
-                href: "https://urn.fi/URN:ISBN:978-952-64-3308-0",
-              },
-            ],
-          },
-          {
-            title: "Conductivity in a Honeycomb Sachdev–Ye–Kitaev Lattice",
-            meta: "Master’s thesis · Ludwig-Maximilians-Universität München · 2019",
-            description: "K. Swaminathan.",
-            links: [
-              { label: "Thesis", href: "https://zenodo.org/records/20020872" },
-            ],
-            identifiers: [
-              {
-                label: "DOI",
-                value: "10.5281/zenodo.20020872",
-                href: "https://doi.org/10.5281/zenodo.20020872",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        heading: "In preparation",
-        items: [
-          {
-            title: "Magneto-oscillations in pentalayer graphene probed using Corbino geometry",
-            meta: "Article in preparation",
-            description: "V. Mantena, K. Swaminathan, and M. Kumar.",
-          },
-        ],
-      },
+      "Peer-reviewed articles and theses in quantum many-body physics and quantum materials. See also Google Scholar and ORCID.",
+    heroDocuments: [
+      { label: "Google Scholar", href: links.scholar, note: "profile" },
+      { label: "ORCID", href: links.orcid, note: "profile" },
+      { label: "arXiv", href: links.arxiv, note: "search" },
     ],
+    sections: [{ publicationList: true }],
   },
   cv: {
     eyebrow: "Curriculum vitae",
     title: "Academic background and experience.",
-    intro:
-      "Education, research experience, and teaching.",
+    intro: "Education, research experience, teaching, and funding. The full CV is available as a PDF.",
     heroDocuments: [
       {
         label: "Curriculum vitae",
-        href: "/CV_Swaminathan.pdf",
+        href: links.cv,
         note: "PDF",
       },
-      // Hidden for now. To restore, add back:
-      // { label: "Extended curriculum vitae", note: "Coming later" },
     ],
     sections: [
       {
@@ -339,21 +340,19 @@ export const pageContent: Record<
             location: "Finland",
             dates: "2021–2026",
             degree: "D.Sc. (Tech.) in Engineering Physics",
-            thesis:
-              "Quasiparticle localization and ergodicity-breaking in flat-band lattice models",
-            thesisLink: "https://urn.fi/URN:ISBN:978-952-64-3308-0",
+            thesis: "Quasiparticle localization and ergodicity breaking in flat-band lattice models",
+            thesisLink: links.thesis,
             context:
-              "Quantum Dynamics Group, Department of Applied Physics. Advisor: Dr. Sebastiano Peotta; supervisor: Prof. Päivi Törmä. Public defense: 21 August 2026; degree awarded 28 September 2026.",
+              "Quantum Dynamics Group, Department of Applied Physics. Advisor: Dr. Sebastiano Peotta; supervisor: Prof. Päivi Törmä; opponent: Prof. Sebastian Huber (ETH Zürich). Public defense 21 August 2026; degree awarded 28 September 2026.",
           },
           {
             institution: "Ludwig-Maximilians-Universität München",
             location: "Germany",
             dates: "2016–2019",
             degree: "M.Sc. in Physics",
-            thesis: "Conductivity in a Honeycomb Sachdev-Ye-Kitaev Lattice",
-            thesisLink: "https://zenodo.org/records/20020872",
-            context:
-              "Chair for Theoretical Solid State Physics. Supervisor: Prof. Dr. Matthias Punk.",
+            thesis: "Conductivity in a Honeycomb Sachdev–Ye–Kitaev Lattice",
+            thesisLink: "https://doi.org/10.5281/zenodo.20020872",
+            context: "Chair for Theoretical Solid State Physics. Supervisor: Prof. Dr. Matthias Punk.",
           },
           {
             institution: "National Institute of Technology Tiruchirappalli",
@@ -361,7 +360,8 @@ export const pageContent: Record<
             dates: "2012–2016",
             degree: "B.Tech. in Electronics and Communication Engineering",
             thesis: "Study of quantum state tomography algorithms",
-            publicThesis: false,
+            context:
+              "Supervisors: Dr. P. Palanisamy (Electronics and Communication Engineering) and Dr. Hemalatha Thiagarajan (Mathematics).",
           },
         ],
       },
@@ -369,45 +369,66 @@ export const pageContent: Record<
         heading: "Research experience",
         items: [
           {
-            title:
-              "Quasiparticle localization and ergodicity breaking in flat-band lattice models",
-            meta: "2022–present",
+            title: "Quasiparticle localization and ergodicity breaking in flat-band lattice models",
+            meta: "2022–present · Aalto University",
             description:
               "Exact diagonalization, symmetry-resolved spectral statistics, projected Hubbard Hamiltonians, and exact many-body eigenstates.",
           },
           {
             title: "Magneto-oscillations in pentalayer graphene",
-            meta: "2025–present",
+            meta: "2025–present · Aalto University",
             description:
-              "Python-based tight-binding and continuum calculations, Landau fans, and Shubnikov-de Haas oscillations compared with Corbino-geometry experiments.",
+              "Python-based tight-binding and continuum calculations, Landau fans, and Shubnikov–de Haas oscillations compared with Corbino-geometry experiments.",
           },
           {
-            title:
-              "Conductivity in a honeycomb hyper-lattice with Sachdev-Ye-Kitaev dots",
-            meta: "2018–2019",
+            title: "Conductivity in a honeycomb lattice of Sachdev–Ye–Kitaev dots",
+            meta: "2018–2019 · LMU Munich",
             description:
               "Analytical transport coefficients and the crossover from a Dirac-fermion regime to an incoherent strange metal.",
           },
         ],
       },
       {
-        heading: "Teaching experience",
+        heading: "Teaching",
         teaching: [
           {
             course: "Aalto University",
             location: "Espoo, Finland",
             date: "2023–2025",
-            context:
-              "Teaching assistant · graduate and undergraduate physics courses.",
+            context: "Teaching assistant · graduate and undergraduate physics courses.",
             links: [{ label: "course details", href: "/teaching" }],
           },
           {
             course: "Ludwig-Maximilians-Universität München",
             location: "Munich, Germany",
             date: "2017–2019",
-            context:
-              "Teaching assistant · undergraduate and graduate physics courses.",
+            context: "Teaching assistant · undergraduate and graduate physics courses.",
             links: [{ label: "course details", href: "/teaching" }],
+          },
+        ],
+      },
+      {
+        heading: "Funding",
+        items: [
+          {
+            title: "Conference travel grants",
+            description:
+              "CMPCity 2026, London (£500) · BEC 2025, Sant Feliu de Guíxols (€1000) · CDNBQS 2023, Évora (€500).",
+          },
+        ],
+      },
+      {
+        heading: "Skills",
+        items: [
+          {
+            title: "Methods",
+            description:
+              "Exact diagonalization, spectral statistics and random-matrix theory, tight-binding and continuum band-structure calculations.",
+          },
+          { title: "Programming", description: "Python, C, C++, Mathematica." },
+          {
+            title: "Languages",
+            description: "English (native), Tamil (native), Hindi (basic), German (basic).",
           },
         ],
       },
@@ -415,9 +436,9 @@ export const pageContent: Record<
   },
   talks: {
     eyebrow: "Talks",
-    title: "Seminars, conferences, and presentations.",
+    title: "Talks and posters.",
     intro:
-      "Selected talks and posters on flat-band many-body physics, localization, and spectral statistics.",
+      "Contributed talks and posters on flat-band many-body physics, localization, and spectral statistics.",
     sections: [
       {
         heading: "Talks",
@@ -426,32 +447,16 @@ export const pageContent: Record<
             conference: "Condensed Matter Physics in the City 2026",
             location: "London, United Kingdom",
             date: "July 2026",
-            title:
-              "Parity-dependent spectral statistics in a flat-band lattice model",
-            links: [
-              { label: "conference", href: "https://research.kent.ac.uk/pqm/cmpcity2026/" },
-            ],
-          },
-          {
-            conference:
-              "Workshop on Criticality, Dynamics, and Nonequilibrium Behavior in Quantum Systems",
-            location: "Évora, Portugal",
-            date: "October 2023",
-            title:
-              "Signatures of many-body localization of quasiparticles in a flat band superconductor",
-            links: [
-              { label: "conference", href: "https://www.cdnbqs.uevora.pt/Web-2023/webpage" },
-            ],
+            title: "Parity-dependent spectral statistics in a flat-band lattice model",
+            badge: "Travel grant",
+            links: [{ label: "conference", href: "https://research.kent.ac.uk/pqm/cmpcity2026/" }],
           },
           {
             conference: "Physics Days 2026, Finnish Physical Society",
             location: "Espoo, Finland",
             date: "March 2026",
-            title:
-              "Parity-dependent spectral statistics in a flat-band lattice model",
-            links: [
-              { label: "event series", href: "https://www.fyysikkoseura.fi/language/en/events/physics-days" },
-            ],
+            title: "Parity-dependent spectral statistics in a flat-band lattice model",
+            links: [{ label: "event series", href: "https://www.fyysikkoseura.fi/language/en/events/physics-days" }],
           },
           {
             conference: "Physics Days 2025, Finnish Physical Society",
@@ -459,23 +464,28 @@ export const pageContent: Record<
             date: "March 2025",
             title:
               "Coexistence of ergodic and nonergodic behavior in a one-dimensional model of a flat band superconductor",
-            links: [
-              { label: "event", href: "https://www.oulu.fi/en/events/physics-days-2025" },
-            ],
+            links: [{ label: "event", href: "https://www.oulu.fi/en/events/physics-days-2025" }],
           },
           {
             conference: "Physics Days 2024, Finnish Physical Society",
             location: "Helsinki, Finland",
             date: "2024",
             title:
-              "Coexistence of ergodic and nonergodic behavior in a one-dimensional toy model of a flat band superconductor",
+              "Coexistence of ergodic and nonergodic behavior in a one-dimensional model of a flat band superconductor",
+          },
+          {
+            conference: "Workshop on Criticality, Dynamics, and Nonequilibrium Behavior in Quantum Systems (CDNBQS 2023)",
+            location: "Évora, Portugal",
+            date: "October 2023",
+            title: "Signatures of many-body localization of quasiparticles in a flat band superconductor",
+            badge: "Travel grant",
+            links: [{ label: "conference", href: "https://www.cdnbqs.uevora.pt/Web-2023/webpage" }],
           },
           {
             conference: "Physics Days 2023, Finnish Physical Society",
             location: "Tampere, Finland",
             date: "2023",
-            title:
-              "Signatures of many-body localization of quasiparticles in a flat band superconductor",
+            title: "Signatures of many-body localization of quasiparticles in a flat band superconductor",
           },
         ],
       },
@@ -483,19 +493,16 @@ export const pageContent: Record<
         heading: "Posters",
         presentations: [
           {
-            conference:
-              "BEC 2025: Biennial Conference on Quantum Gases and Related Fields",
+            conference: "BEC 2025: Biennial Conference on Quantum Gases and Related Fields",
             location: "Sant Feliu de Guíxols, Spain",
             date: "September 2025",
             title:
               "Coexistence of ergodic and nonergodic behavior in a one-dimensional model of a flat band superconductor",
-            links: [
-              { label: "conference", href: "https://indico.phys.ethz.ch/event/143/" },
-            ],
+            badge: "Travel grant",
+            links: [{ label: "conference", href: "https://indico.phys.ethz.ch/event/143/" }],
           },
           {
-            conference:
-              "Simulation of Far-from-Equilibrium Quantum Many-Body Dynamics",
+            conference: "Simulation of Far-from-Equilibrium Quantum Many-Body Dynamics (SimQuDyn 2025)",
             location: "Munich, Germany",
             date: "April 2025",
             title:
@@ -508,44 +515,28 @@ export const pageContent: Record<
             ],
           },
           {
-            conference:
-              "Finite-Temperature Non-Equilibrium Superfluid Systems 2024",
+            conference: "FINESS 2024: Finite Temperature Non-Equilibrium Superfluid Systems",
             location: "Gold Coast, Australia",
             date: "September 2024",
-            title:
-              "Signatures of many-body localization of quasiparticles in a flat band superconductor",
-            links: [
-              { label: "conference", href: "https://indico.global/event/12930/" },
-            ],
+            title: "Signatures of many-body localization of quasiparticles in a flat band superconductor",
+            links: [{ label: "conference", href: "https://indico.global/event/12930/" }],
           },
           {
-            conference:
-              "Quantum Coherent Dynamics: Turbulence, Non-Equilibrium and Interactions",
+            conference: "QACTUS 2023: Quantum Coherent Dynamics — Turbulence, Non-Equilibrium and Interactions",
             location: "Barcelona, Spain",
             date: "September 2023",
-            title:
-              "Signatures of many-body localization of quasiparticles in a flat band superconductor",
-            links: [
-              { label: "conference", href: "https://qactus-2023.upc.edu/" },
-            ],
+            title: "Signatures of many-body localization of quasiparticles in a flat band superconductor",
+            links: [{ label: "conference", href: "https://qactus-2023.upc.edu/" }],
           },
           {
             conference:
               "ICTP School on Quantum Many-Body Phenomena out of Equilibrium: From Chaos to Criticality",
             location: "Trieste, Italy",
             date: "August 2023",
-            title:
-              "Signatures of many-body localization of quasiparticles in a flat band superconductor",
-            links: [
-              { label: "school", href: "https://indico.ictp.it/event/10201/overview" },
-            ],
+            title: "Signatures of many-body localization of quasiparticles in a flat band superconductor",
+            links: [{ label: "school", href: "https://indico.ictp.it/event/10201/overview" }],
           },
         ],
-      },
-      {
-        heading: "Conferences attended without presentation",
-        placeholder:
-          "Conference participation entries can be added here with the conference name, location, and month and year.",
       },
     ],
   },
@@ -553,7 +544,7 @@ export const pageContent: Record<
     eyebrow: "Teaching",
     title: "Teaching and course support.",
     intro:
-      "Undergraduate and graduate teaching experience at Aalto University and Ludwig-Maximilians-Universität München.",
+      "Undergraduate and graduate teaching at Aalto University and Ludwig-Maximilians-Universität München.",
     sections: [
       {
         heading: "Aalto University",
@@ -576,48 +567,48 @@ export const pageContent: Record<
         heading: "LMU Munich",
         teaching: [
           {
-            course: "Classical Mechanics",
-            location: "Ludwig-Maximilians-Universität München",
-            date: "2017–2019",
-            context: "Teaching assistant · undergraduate course.",
-          },
-          {
-            course: "Mathematical Methods for Physics",
-            location: "Ludwig-Maximilians-Universität München",
-            date: "2017–2019",
-            context: "Teaching assistant · undergraduate course.",
-          },
-          {
-            course: "Theoretical Mechanics",
-            location: "Ludwig-Maximilians-Universität München",
-            date: "2017–2019",
-            context: "Teaching assistant · undergraduate course.",
-          },
-          {
-            course: "Quantum Mechanics",
-            location: "Ludwig-Maximilians-Universität München",
-            date: "2017–2019",
-            context: "Teaching assistant · undergraduate course.",
-          },
-          {
-            course: "Thermodynamics and Statistical Physics",
-            location: "Ludwig-Maximilians-Universität München",
-            date: "2017–2019",
-            context: "Teaching assistant · undergraduate course.",
-          },
-          {
             course: "Advanced Statistical Physics",
-            location: "Ludwig-Maximilians-Universität München",
+            location: "LMU Munich",
             date: "2017–2019",
             context:
               "Teaching assistant · graduate course, with additional course-material support (2018–2019).",
           },
           {
             course: "Mathematical Methods for Physicists",
-            location: "Ludwig-Maximilians-Universität München",
+            location: "LMU Munich",
             date: "2018–2019",
             context:
               "Proofreading assistance for the course material by A. Altland and J. von Delft.",
+          },
+          {
+            course: "Thermodynamics and Statistical Physics",
+            location: "LMU Munich",
+            date: "2017–2019",
+            context: "Teaching assistant · undergraduate course.",
+          },
+          {
+            course: "Quantum Mechanics",
+            location: "LMU Munich",
+            date: "2017–2019",
+            context: "Teaching assistant · undergraduate course.",
+          },
+          {
+            course: "Theoretical Mechanics",
+            location: "LMU Munich",
+            date: "2017–2019",
+            context: "Teaching assistant · undergraduate course.",
+          },
+          {
+            course: "Classical Mechanics",
+            location: "LMU Munich",
+            date: "2017–2019",
+            context: "Teaching assistant · undergraduate course.",
+          },
+          {
+            course: "Mathematical Methods for Physics",
+            location: "LMU Munich",
+            date: "2017–2019",
+            context: "Teaching assistant · undergraduate course.",
           },
         ],
       },
@@ -633,8 +624,7 @@ export const pageContent: Record<
   software: {
     eyebrow: "Software",
     title: "Code and research tools.",
-    intro:
-      "An optional catalogue of public code, datasets, and computational tools. This page is hidden by default.",
+    intro: "Public code, datasets, and computational tools.",
     sections: [],
   },
 };

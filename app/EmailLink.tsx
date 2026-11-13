@@ -5,7 +5,7 @@
 const user = "koushik.swaminathan";
 const domain = "protonmail.com";
 
-export default function EmailLink({ className }: { className?: string }) {
+export default function EmailLink({ className, label }: { className?: string; label?: string }) {
   return (
     <a
       className={className}
@@ -16,7 +16,7 @@ export default function EmailLink({ className }: { className?: string }) {
         window.location.href = `mailto:${user}@${domain}`;
       }}
     >
-      koushik [dot] swaminathan [at] protonmail [dot] com
+      {label ?? "koushik [dot] swaminathan [at] protonmail [dot] com"}
     </a>
   );
 }
